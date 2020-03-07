@@ -16,6 +16,7 @@ limitations under the License.
 package cmd
 
 import (
+	"github.com/Eldius/network-monitor-go/display"
 	"github.com/Eldius/network-monitor-go/pingtools"
 	"github.com/spf13/cobra"
 )
@@ -26,15 +27,17 @@ var pingCmd = &cobra.Command{
 	Short: "Ping a host",
 	Long:  `Just ping a host`,
 	Run: func(cmd *cobra.Command, args []string) {
-		pingtools.Ping(*pingTarget)
+		display.DisplayPing(pingtools.Ping(*pingTargets, *packets))
 	},
 }
 
-var pingTarget *string
+var pingTargets *[]string
+var packets *int
 
 func init() {
 	rootCmd.AddCommand(pingCmd)
-	pingTarget = pingCmd.Flags().StringP("target", "t", "8.8.8.8", "Ping target")
+	pingTargets = pingCmd.Flags().StringArrayP("target", "t", nil, "Ping target")
+	packets = pingCmd.Flags().IntP("packets", "p", 4, "Ping packets to send")
 
 	// Here you will define your flags and configuration settings.
 
