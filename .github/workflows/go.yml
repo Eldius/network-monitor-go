@@ -44,17 +44,4 @@ jobs:
         GOARM: 5
 
     - name: Upload to Bintray
-      uses: hpcsc/upload-bintray-docker-action@v1
-      with:
-        # Bintray repository name
-        repository: network-manager-go
-        # Bintray package name
-        package: network-manager-go
-        # Binary version number
-        version: 0.0.1
-        # Path to source binary to upload
-        sourcePath: build/network-monitor-go.linux.arm64
-        # Bintray username
-        username: eldius
-        # Bintray API Key
-        apiKey: 68dc82ef8224652b98675133ec82e66d561cab3e
+      run: curl -T build/network-monitor-go.linux.arm64 -ueldius:${secrets.BINTRAY_SECRET_KEY} https://api.bintray.com/content/eldius/network-manager-go/network-manager-go/0.0.1/network-manager-go
