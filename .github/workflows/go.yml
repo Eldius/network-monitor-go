@@ -44,4 +44,4 @@ jobs:
         GOARM: 5
 
     - name: Upload to Bintray
-      run: curl -T build/network-monitor-go.linux.arm64 -ueldius:${secrets.BINTRAY_SECRET_KEY} https://api.bintray.com/content/eldius/network-manager-go/network-manager-go/0.0.1/network-manager-go
+      run: curl -T build/network-monitor-go.linux.arm64 -ueldius:${{secrets.BINTRAY_SECRET_KEY}} https://api.bintray.com/content/eldius/network-manager-go/network-manager-go/0.0.1/network-manager-go
