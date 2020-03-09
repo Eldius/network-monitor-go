@@ -27,17 +27,23 @@ var pingCmd = &cobra.Command{
 	Short: "Ping a host",
 	Long:  `Just ping a host`,
 	Run: func(cmd *cobra.Command, args []string) {
-		display.DisplayPing(pingtools.Ping(*pingTargets, *packets))
+		if *quiet {
+			display.DisplayPingResponse(pingtools.Ping(*pingTargets, *packets))
+		} else {
+			display.DisplayPing(pingtools.Ping(*pingTargets, *packets))
+		}
 	},
 }
 
 var pingTargets *[]string
 var packets *int
+var quiet *bool
 
 func init() {
 	rootCmd.AddCommand(pingCmd)
-	pingTargets = pingCmd.Flags().StringArrayP("target", "t", nil, "Ping target")
+	pingTargets = pingCmd.Flags().StringArrayP("target", "t", []string{"8.8.8.8"}, "Ping target")
 	packets = pingCmd.Flags().IntP("packets", "p", 4, "Ping packets to send")
+	quiet = pingCmd.Flags().BoolP("quiet", "q", false, "Executes without needs to interaction")
 
 	// Here you will define your flags and configuration settings.
 

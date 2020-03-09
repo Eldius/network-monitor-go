@@ -21,7 +21,7 @@ type PingResponse struct {
 }
 
 /*
-Ping pings a host
+Ping pings some hosts
 */
 func Ping(hosts []string, packets int) []PingResponse {
 	var responseList []PingResponse
